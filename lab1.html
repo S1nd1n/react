@@ -12,16 +12,35 @@
     <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
+    <script src="/js/data.js"></script>
+    <script type="text/babel" src="/js/Welcome.js"></script>
+
     <script type="text/babel">
         const names = ["John", "Барсик"]
             .map((name, index) => <li key={index}>{name}</li>);
 
-        const h1Style = {
+        const h3Style = {
             color: "#369",
             fontfamily: "sans-serif",
         }
+        console.log(dataBook);
+
+        dataBook.push(
+            { id: 6, title: "Book 3", author: "Author 3", price: null }
+        );
+
+        const formatPrice = price => price ? <b>{price}</b> : <del> </del>;
+
+        const books = dataBook.map(book => <div className="book">
+            <h3 style={h3Style}>{book.title}</h3>
+            <p>Автор: {book.author}</p>
+            <p>Цена: {formatPrice(book.price)} руб.</p>
+        </div>);
+
         const app = <div className="app">
-            <h1 style={h1Style}>Привет, мир!</h1>
+            <Welcome name="Василий" />
+
+            {books}
             <ul>
                 {names}
             </ul>
