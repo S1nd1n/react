@@ -23,7 +23,27 @@ class Book extends React.Component {
         this.state = {
             selected: true
         }
+        this.handleClick = this.handleClick.bind(this);
+        this.addBasketBook = this.addBasketBook.bind(this);
     }
+
+    componentDidMount() {
+        console.log('--', 'компонент смонтирован')
+    }
+
+    componentWillUnmount() {
+        console.log('--', 'компонент будет демонтирован')
+    }
+    handleClick(e) {
+        e.preventDefault();
+        this.setState({ selected: !this.state.selected })
+    }
+
+    addBasketBook(e) {
+        e.preventDefault();
+        this.props.handleAddBasket(this.props.id)
+    }
+
     render() {
         const h3Style = {
             color: "#369",
@@ -38,8 +58,10 @@ class Book extends React.Component {
                 <h3 style={h3Style}>{title}</h3>
                 <p>Автор: {author}</p>
                 <p>Цена: {formatPrice(price)} руб.</p>
-                <a href="#" className="btn btn-success" onClick={()=>{this.setState({selected: !this.state.selected})}}>Сравнить</a> &nbsp;
-                <a href="#" className="btn btn-success">В корзину</a>
+                {/* <a href="#" className="btn btn-success" onClick={() => { this.setState({ selected: !this.state.selected }) }}>Сравнить</a> &nbsp; */}
+                {/* в гипперссылке описываем обработчик события */}
+                <a href="#" className="btn btn-success" onClick={this.handleClick}>Сравнить</a> &nbsp;
+                <a href="#" className="btn btn-success" onClick={this.addBasketBook}>В корзину</a>
             </div>
         )
 
